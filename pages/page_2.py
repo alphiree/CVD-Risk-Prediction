@@ -41,7 +41,7 @@ st.markdown(no_sidebar_style, unsafe_allow_html=True)
 
 @st.cache(allow_output_mutation=True)
 def model():
-    final_model = joblib.load('Results\\final_model')
+    final_model = joblib.load('Results/final_model')
     return final_model
 
 final_model = model()
