@@ -95,10 +95,13 @@ with predict:
                                                     
         Sex = st.selectbox('Sex',('Select One','Male','Female'))
 
+        Height_cm = st.selectbox('How tall are you?',('Feet and Inches','Centimeters'))
 
-        Height_cm = st.slider(
-                                'Height (cm)',
-                                25, 300,step=1)
+        if Height_cm == 'Feet and Inches':
+            Feet = st.selectbox('Feet',('Feet',3,4,5,6,7),label_visibility="collapsed")
+            Inches = st.selectbox('Inches',('Inches',0,1,2,3,4,5,6,7,8,9,10,11),label_visibility="collapsed")
+        # else:
+
         
         Weight_kg = st.slider(
                                 'Weight (kg)',
