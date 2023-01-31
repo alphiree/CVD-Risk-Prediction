@@ -75,8 +75,6 @@ with title:
 #             submit_button = st.form_submit_button(label='Submit')
 
 with predict:
-
-    with st.form(key='submit this'):
         st.subheader('Fill out the Following:')
         name = st.text_input('Enter your name:')
 
@@ -163,9 +161,6 @@ with predict:
                                 'How often did you eat any kind of fried potatoes, including French fries, home fries, or hash browns?',
                                 0, 120,step=1)
         
-
-        submit_button = st.form_submit_button(label='Predict')
-
 bmi = Weight_kg / (Height_cm/100)**2
 
 new_input = [General_Health,Checkup,Exercise,Skin_Cancer,
@@ -217,8 +212,9 @@ df.columns = ['General_Health',
  'FriedPotato_Consumption']
 
 
-st.subheader('Results')
-if submit_button:
+
+if st.button('Predict'):
+    st.subheader('Results')
     try:
         pred = final_model.predict(df)
         y_pred_proba = final_model.predict_proba(df)
