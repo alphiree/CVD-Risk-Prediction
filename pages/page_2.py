@@ -55,7 +55,6 @@ predict = st.container()
 
 with title:
     st.title('Heart Disease Risk Prediction using Machine Learning Algorithms')
-    st.write('By: Ryan Marcus Jeremy M. Lupague')
     # st.text()
     if st.button('Main Page'):
         switch_page('webapp')
