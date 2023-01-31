@@ -75,103 +75,157 @@ with title:
 #             submit_button = st.form_submit_button(label='Submit')
 
 with predict:
-        st.subheader('Fill out the Following:')
-        name = st.text_input('Enter your name:')
+    st.subheader('Fill out the Following:')
+    name = st.text_input('Enter your name:')
 
-        st.write('**Demographic and Screening Questions**')
-        Age_Category = st.selectbox('In what Age category do you belong?',('Select One','18-24',
-                                                                            '25-29',
-                                                                            '30-34',
-                                                                            '35-39',
-                                                                            '40-44',
-                                                                            '45-49',
-                                                                            '50-54',
-                                                                            '55-59',
-                                                                            '60-64',
-                                                                            '65-69',
-                                                                            '70-74',
-                                                                            '75-79',
-                                                                            '80+',))
-                                                    
-        Sex = st.selectbox('Sex',('Select One','Male','Female'))
+    st.write('**Demographic and Screening Questions**')
+    Age_Category = st.selectbox('In what Age category do you belong?',('Select One','18-24',
+                                                                        '25-29',
+                                                                        '30-34',
+                                                                        '35-39',
+                                                                        '40-44',
+                                                                        '45-49',
+                                                                        '50-54',
+                                                                        '55-59',
+                                                                        '60-64',
+                                                                        '65-69',
+                                                                        '70-74',
+                                                                        '75-79',
+                                                                        '80+',))
+                                                
+    Sex = st.selectbox('Sex',('Select One','Male','Female'))
 
-        Height_cm = st.selectbox('How tall are you?',('Feet and Inches','Centimeters'))
+    Height = st.selectbox('How tall are you?',('Feet and Inches','Centimeters'))
 
-        if Height_cm == 'Feet and Inches':
-            Feet = st.selectbox('Feet',('Feet',3,4,5,6,7),label_visibility="collapsed")
-            Inches = st.selectbox('Inches',('Inches',0,1,2,3,4,5,6,7,8,9,10,11),label_visibility="collapsed")
-        # else:
+    if Height == 'Feet and Inches':
+        Feet = st.selectbox('Feet',('Feet',3,4,5,6,7),label_visibility="collapsed")
+        Inches = st.selectbox('Inches',('Inches',0,1,2,3,4,5,6,7,8,9,10,11),label_visibility="collapsed")
 
-        
-        Weight_kg = st.slider(
-                                'Weight (kg)',
-                                25, 300,step=1)
-                                
-        Smoking_History = st.radio('Have you smoked at least 100 cigarettes in your entire life?',
-                                    ('No','Yes'),horizontal=True)
+        if Feet != 'Feet' and Inches != 'Inches':
+            Height_cm = ((Feet * 12) + Inches) * 2.54         
+    else:
+        Height_cm = st.number_input('How tall are you in cm?',min_value=25,max_value=300,step=10)
 
-        st.write('**Health Status**')
-        General_Health = st.selectbox('Would you say that in general, your health is',('Select One',
-                                                                            'Poor',
-                                                                            'Fair',
-                                                                            'Good',
-                                                                            'Very Good',
-                                                                            'Excellent',
-                                                                                    ))
-        st.write('**Health Care Access**')
-        Checkup = st.selectbox('About how long has it been since you \
-                                    last visited a doctor for a routine checkup?',('Select One',
-                                                                            'Within the past year',
-                                                                            'Within the past 2 years',
-                                                                            'Within the past 5 years',
-                                                                            '5 or more years ago',
-                                                                            'Never',
-                                                                                    ))
+    Weight_kg = st.number_input('Weight (kg)',min_value=25.00,max_value=300.00,step=10.00)
+                            
+    Smoking_History = st.radio('Have you smoked at least 100 cigarettes in your entire life?',
+                                ('No','Yes'),horizontal=True)
 
-        st.write('**Exercise**')
-        Exercise = st.radio('During the past month, other than your regular job, did you participate in any physical activities or exercises such as running, calisthenics, golf, gardening, or walking for exercise?',
-                                    ('Yes','No'),horizontal=True)
+    st.write('**Health Status**')
+    General_Health = st.selectbox('Would you say that in general, your health is',('Select One',
+                                                                        'Poor',
+                                                                        'Fair',
+                                                                        'Good',
+                                                                        'Very Good',
+                                                                        'Excellent',
+                                                                                ))
+    st.write('**Health Care Access**')
+    Checkup = st.selectbox('About how long has it been since you \
+                                last visited a doctor for a routine checkup?',('Select One',
+                                                                        'Within the past year',
+                                                                        'Within the past 2 years',
+                                                                        'Within the past 5 years',
+                                                                        '5 or more years ago',
+                                                                        'Never',
+                                                                                ))
 
-        st.write('**Health Conditions**')
-        st.write('Has a doctor, nurse, or other health professional ever told you that you had any of the following? For each, tell me Yes or No.')
-        Depression = st.radio('(Ever told) (you had) a depressive disorder (including depression, major depression, dysthymia, or minor depression)?',
-                                    ('No','Yes'),horizontal=True)
-        Diabetes = st.radio('(Ever told) (you had) diabetes?',
-                                    ('No','Yes'),horizontal=True)
-        Arthritis = st.radio('(Ever told) (you had) some form of arthritis, rheumatoid arthritis, gout, lupus, or fibromyalgia?',
-                                    ('No','Yes'),horizontal=True)
-        Skin_Cancer = st.radio('(Ever told) (you had) skin cancer?',
-                                    ('No','Yes'),horizontal=True)
-        Other_Cancer = st.radio('(Ever told) (you had) any other types of cancer?',
-                                    ('No','Yes'),horizontal=True)
-        
-        st.write('**Food and Drink Consumption**')
+    st.write('**Exercise**')
+    Exercise = st.radio('During the past month, other than your regular job, did you participate in any physical activities or exercises such as running, calisthenics, golf, gardening, or walking for exercise?',
+                                ('Yes','No'),horizontal=True)
 
-        Alcohol_Consumption = st.slider(
-                                'During the past 30 days, how many days \
-                                did you have at least one drink of any alcoholic beverage such \
-                                as beer, wine, a malt beverage or liquor?',
-                                0, 30,step=1)
-        
-        st.write('Now think about the foods you ate during the past month, that is, the past 30 days, including meals and snacks.')
-        Fruit_Consumption = st.slider(
-                                'Not including juices, how often did you eat fruit?',
-                                0, 120,step=1)
-        Green_Vegetables_Consumption = st.slider(
-                                'How often did you eat a green leafy or lettuce salad, with or without other vegetables?',
-                                0, 120,step=1)
-        FriedPotato_Consumption = st.slider(
-                                'How often did you eat any kind of fried potatoes, including French fries, home fries, or hash browns?',
-                                0, 120,step=1)
-        
-bmi = Weight_kg / (Height_cm/100)**2
+    st.write('**Health Conditions**')
+    st.write('Has a doctor, nurse, or other health professional ever told you that you had any of the following? For each, tell me Yes or No.')
+    Depression = st.radio('(Ever told) (you had) a depressive disorder (including depression, major depression, dysthymia, or minor depression)?',
+                                ('No','Yes'),horizontal=True)
+    Diabetes = st.radio('(Ever told) (you had) diabetes?',
+                                ('No','Yes'),horizontal=True)
+    Arthritis = st.radio('(Ever told) (you had) some form of arthritis, rheumatoid arthritis, gout, lupus, or fibromyalgia?',
+                                ('No','Yes'),horizontal=True)
+    Skin_Cancer = st.radio('(Ever told) (you had) skin cancer?',
+                                ('No','Yes'),horizontal=True)
+    Other_Cancer = st.radio('(Ever told) (you had) any other types of cancer?',
+                                ('No','Yes'),horizontal=True)
+    
+    st.write('**Food and Drink Consumption**')
 
-new_input = [General_Health,Checkup,Exercise,Skin_Cancer,
-            Other_Cancer,Depression,Diabetes,Arthritis,
-            Sex,Age_Category,Height_cm,Weight_kg,bmi,
-            Smoking_History,Alcohol_Consumption,Fruit_Consumption,
-            Green_Vegetables_Consumption,FriedPotato_Consumption
-]
+    Alcohol_Consumption = st.slider(
+                            'During the past 30 days, how many days \
+                            did you have at least one drink of any alcoholic beverage such \
+                            as beer, wine, a malt beverage or liquor?',
+                            0, 30,step=1)
+    
+    st.write('Now think about the foods you ate during the past month, that is, the past 30 days, including meals and snacks.')
+
+    fruit = st.selectbox('Not including juices, how often did you eat fruit?',('Select One','Per Day',
+                                                                            'Per Week',
+                                                                            'Per Month'))
+
+    if fruit == 'Per Day':
+        fruit_day = st.selectbox('Day',('How many times do you eat fruit per day?',0,1,2,3,4,5),label_visibility="collapsed")
+
+        if fruit_day != 'How many times do you eat fruit per day?':
+            Fruit_Consumption = fruit_day*30
+    
+    elif fruit == 'Per Week':
+        fruit_week = st.selectbox('Day',('How many times do you eat fruit per week?',0,1,2,3,4,5),label_visibility="collapsed")
+        if fruit_week != 'How many times do you eat fruit per week?':
+            Fruit_Consumption = fruit_week *4
+    elif fruit == 'Per Month':
+        fruit_month = st.selectbox('Day',('How many times do you eat fruit per month?',0,1,2,3,4,5),label_visibility="collapsed")
+        if fruit_month != 'How many times do you eat fruit per month?':
+            Fruit_Consumption = fruit_month
+
+    green_veg = st.selectbox('How often did you eat a green leafy or lettuce salad, with or without other vegetables?',('Select One','Per Day',
+                                                                            'Per Week',
+                                                                            'Per Month'))
+
+    if green_veg == 'Per Day':
+        green_veg_day = st.selectbox('Day',('How many times do you eat Green Vegetables per day?',0,1,2,3,4,5),label_visibility="collapsed")
+
+        if green_veg_day != 'How many times do you eat Green Vegetables per day?':
+            Green_Vegetables_Consumption = green_veg_day*30
+    
+    elif green_veg == 'Per Week':
+        green_veg_week = st.selectbox('Day',('How many times do you eat Green Vegetables per week?',0,1,2,3,4,5),label_visibility="collapsed")
+        if green_veg_week != 'How many times do you eat Green Vegetables per week?':
+            Green_Vegetables_Consumption = green_veg_week *4
+    elif green_veg == 'Per Month':
+        green_veg_month = st.selectbox('Day',('How many times do you eat Green Vegetables per month?',0,1,2,3,4,5),label_visibility="collapsed")
+        if green_veg_month != 'How many times do you eat Green Vegetables per month?':
+            Green_Vegetables_Consumption = green_veg_month
+
+    fried = st.selectbox('How often did you eat any kind of fried potatoes, including French fries, home fries, or hash browns?',('Select One','Per Day',
+                                                                            'Per Week',
+                                                                            'Per Month'))
+
+    if fried == 'Per Day':
+        fried_day = st.selectbox('Day',('How many times do you eat Fried Potatoes per day?',0,1,2,3,4,5),label_visibility="collapsed")
+
+        if fried_day != 'How many times do you eat Fried Potatoes per day?':
+            FriedPotato_Consumption = fried_day*30
+    
+    elif fried == 'Per Week':
+        fried_week = st.selectbox('Day',('How many times do you eat Fried Potatoes per week?',0,1,2,3,4,5),label_visibility="collapsed")
+        if fried_week != 'How many times do you eat Fried Potatoes week?':
+            FriedPotato_Consumption = fried_week *4
+    elif fried == 'Per Month':
+        fried_month = st.selectbox('Day',('How many times do you eat Fried Potatoes per month?',0,1,2,3,4,5),label_visibility="collapsed")
+        if fried_month != 'How many times do you eat Fried Potatoes per month?':
+            FriedPotato_Consumption = fried_month
+    
+    submit = st.button('Predict')
+    
+
+
+# bmi = Weight_kg / (Height_cm/100)**2
+
+# new_input = [General_Health,Checkup,Exercise,Skin_Cancer,
+#             Other_Cancer,Depression,Diabetes,Arthritis,
+#             Sex,Age_Category,Height_cm,Weight_kg,bmi,
+#             Smoking_History,Alcohol_Consumption,Fruit_Consumption,
+#             Green_Vegetables_Consumption,FriedPotato_Consumption
+# ]
+
 
 # new_input_2 = ['Good',
 #  'Within the past year',
@@ -193,74 +247,172 @@ new_input = [General_Health,Checkup,Exercise,Skin_Cancer,
 #  0.0]
 
 
-df = pd.DataFrame([new_input])
+# df = pd.DataFrame([new_input])
 
-df.columns = ['General_Health',
- 'Checkup',
- 'Exercise',
- 'Skin_Cancer',
- 'Other_Cancer',
- 'Depression',
- 'Diabetes',
- 'Arthritis',
- 'Sex',
- 'Age_Category',
- 'Height_(cm)',
- 'Weight_(kg)',
- 'BMI',
- 'Smoking_History',
- 'Alcohol_Consumption',
- 'Fruit_Consumption',
- 'Green_Vegetables_Consumption',
- 'FriedPotato_Consumption']
+# df.columns = ['General_Health',
+#  'Checkup',
+#  'Exercise',
+#  'Skin_Cancer',
+#  'Other_Cancer',
+#  'Depression',
+#  'Diabetes',
+#  'Arthritis',
+#  'Sex',
+#  'Age_Category',
+#  'Height_(cm)',
+#  'Weight_(kg)',
+#  'BMI',
+#  'Smoking_History',
+#  'Alcohol_Consumption',
+#  'Fruit_Consumption',
+#  'Green_Vegetables_Consumption',
+#  'FriedPotato_Consumption']
+
+# if st.button('Predict'):
+#     st.subheader('Results')
+#     try:
+#         bmi = Weight_kg / (Height_cm/100)**2
+
+#         new_input = [General_Health,Checkup,Exercise,Skin_Cancer,
+#                     Other_Cancer,Depression,Diabetes,Arthritis,
+#                     Sex,Age_Category,Height_cm,Weight_kg,bmi,
+#                     Smoking_History,Alcohol_Consumption,Fruit_Consumption,
+#                     Green_Vegetables_Consumption,FriedPotato_Consumption
+#         ]
+#         df = pd.DataFrame([new_input])
+
+#         df.columns = ['General_Health',
+#         'Checkup',
+#         'Exercise',
+#         'Skin_Cancer',
+#         'Other_Cancer',
+#         'Depression',
+#         'Diabetes',
+#         'Arthritis',
+#         'Sex',
+#         'Age_Category',
+#         'Height_(cm)',
+#         'Weight_(kg)',
+#         'BMI',
+#         'Smoking_History',
+#         'Alcohol_Consumption',
+#         'Fruit_Consumption',
+#         'Green_Vegetables_Consumption',
+#         'FriedPotato_Consumption']
+
+#         pred = final_model.predict(df)
+#         y_pred_proba = final_model.predict_proba(df)
+#         st.write(f'Hello, {name}!')
+#         st.write('Based from the Machine Learning model, your risk of developing Cardiovascular Disease (CVD) is:')
+
+#         if pred[0] == 0:
+#             risk = 'LOW'
+#             st.success(f'**{risk}**')
+#         else:
+#             risk = 'HIGH'
+#             st.error(f'**{risk}**')
+
+        
+#         st.warning('Disclaimer: **The results from this test are not intended to diagnose or treat any disease, or offer personal medical advice.**\
+#                 The model was only trained in 300,000 data and with personal attributes only. Moreover, the analysis of\
+#                     this models states that it is likely to classify certain attributes such as the sex of the person, their general health status, and being \
+#                         diabetic as high importance in determining if the person is at risk or not.' )
+        
+#         st.info('Accuracy: The Machine Learning Model used for prediction was first evaluated in an unknown data consisting of 60,000 records, \
+#             The model correctly classified 79.18 % of people with CVDs and 73.46 % of people that is healthy. However, only 21 % of the predicted by the model out of all predicted that are at risk is correctly classified. \
+#                 The model takes into consideration the cost of misclassifying at risk people as healthy. That is why the model is more likely to classify people at risk.' )
+
+#         details = st.expander(label='More Details',expanded=False)
+#         with details:
+#             st.write('According to the ML model:')
+#             st.write('The Probability that it will classify you as at risk for CVDs are:')
+#             st.info(y_pred_proba[:,1][0])
+#             st.write('The Probability that it will classify you as at no risk for CVDs are:')
+#             st.info(y_pred_proba[:,0][0])
+#             st.write('Note: If the Probability it will classify you at risk is over 0.5, then the model will classify you as at risk for CVDs')
+
+        
+#         st.balloons()
+
+
+        
 
 
 
-if st.button('Predict'):
+        
+#     except:
+#         st.error('Enter valid values to show the results')
+#         #pass
+
+
+results = st.container()
+
+with results:
     st.subheader('Results')
-    try:
-        pred = final_model.predict(df)
-        y_pred_proba = final_model.predict_proba(df)
-        st.write(f'Hello, {name}!')
-        st.write('Based from the Machine Learning model, your risk of developing Cardiovascular Disease (CVD) is:')
+    if submit:
+        try:
+            bmi = Weight_kg / (Height_cm/100)**2
 
-        if pred[0] == 0:
-            risk = 'LOW'
-            st.success(f'**{risk}**')
-        else:
-            risk = 'HIGH'
-            st.error(f'**{risk}**')
+            new_input = [General_Health,Checkup,Exercise,Skin_Cancer,
+                        Other_Cancer,Depression,Diabetes,Arthritis,
+                        Sex,Age_Category,Height_cm,Weight_kg,bmi,
+                        Smoking_History,Alcohol_Consumption,Fruit_Consumption,
+                        Green_Vegetables_Consumption,FriedPotato_Consumption
+            ]
+            df = pd.DataFrame([new_input])
 
-        
-        st.warning('Disclaimer: **The results from this test are not intended to diagnose or treat any disease, or offer personal medical advice.**\
-                The model was only trained in 300,000 data and with personal attributes only. Moreover, the analysis of\
-                    this models states that it is likely to classify certain attributes such as the sex of the person, their general health status, and being \
-                        diabetic as high importance in determining if the person is at risk or not.' )
-        
-        st.info('Accuracy: The Machine Learning Model used for prediction was first evaluated in an unknown data consisting of 60,000 records, \
-            The model correctly classified 79.18 % of people with CVDs and 73.46 % of people that is healthy. However, only 21 % of the predicted by the model out of all predicted that are at risk is correctly classified. \
-                The model takes into consideration the cost of misclassifying at risk people as healthy. That is why the model is more likely to classify people at risk.' )
+            df.columns = ['General_Health',
+            'Checkup',
+            'Exercise',
+            'Skin_Cancer',
+            'Other_Cancer',
+            'Depression',
+            'Diabetes',
+            'Arthritis',
+            'Sex',
+            'Age_Category',
+            'Height_(cm)',
+            'Weight_(kg)',
+            'BMI',
+            'Smoking_History',
+            'Alcohol_Consumption',
+            'Fruit_Consumption',
+            'Green_Vegetables_Consumption',
+            'FriedPotato_Consumption']
 
-        details = st.expander(label='More Details',expanded=False)
-        with details:
-            st.write('According to the ML model:')
-            st.write('The Probability that it will classify you as at risk for CVDs are:')
-            st.info(y_pred_proba[:,1][0])
-            st.write('The Probability that it will classify you as at no risk for CVDs are:')
-            st.info(y_pred_proba[:,0][0])
-            st.write('Note: If the Probability it will classify you at risk is over 0.5, then the model will classify you as at risk for CVDs')
+            pred = final_model.predict(df)
+            y_pred_proba = final_model.predict_proba(df)
+            st.write(f'Hello, {name}!')
+            st.write('Based from the Machine Learning model, your risk of developing Cardiovascular Disease (CVD) is:')
 
-        
-        st.balloons()
+            if pred[0] == 0:
+                risk = 'LOW'
+                st.success(f'**{risk}**')
+            else:
+                risk = 'HIGH'
+                st.error(f'**{risk}**')
 
+            
+            st.warning('Disclaimer: **The results from this test are not intended to diagnose or treat any disease, or offer personal medical advice.**\
+                    The model was only trained in 300,000 data and with personal attributes only. Moreover, the analysis of\
+                        this models states that it is likely to classify certain attributes such as the sex of the person, their general health status, and being \
+                            diabetic as high importance in determining if the person is at risk or not.' )
+            
+            st.info('Accuracy: The Machine Learning Model used for prediction was first evaluated in an unknown data consisting of 60,000 records, \
+                The model correctly classified 79.18 % of people with CVDs and 73.46 % of people that is healthy. However, only 21 % of the predicted by the model out of all predicted that are at risk is correctly classified. \
+                    The model takes into consideration the cost of misclassifying at risk people as healthy. That is why the model is more likely to classify people at risk.' )
 
-        
+            details = st.expander(label='More Details',expanded=False)
+            with details:
+                st.write('According to the ML model:')
+                st.write('The Probability that it will classify you as at risk for CVDs are:')
+                st.info(y_pred_proba[:,1][0])
+                st.write('The Probability that it will classify you as at no risk for CVDs are:')
+                st.info(y_pred_proba[:,0][0])
+                st.write('Note: If the Probability it will classify you at risk is over 0.5, then the model will classify you as at risk for CVDs')
 
-
-
-        
-    except:
-        st.error('Enter valid values to show the results')
-        #pass
-
-
+            
+            st.balloons()        
+        except:
+            st.error('Enter valid values to show the results')
+            #pass
