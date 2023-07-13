@@ -10,10 +10,9 @@ from streamlit_extras.switch_page_button import switch_page
 
 
 
-
+## Sidebar Settings
 
 # from streamlit_option_menu import option_menu
-
 
 # with st.sidebar:
 #     selected = option_menu(
@@ -24,8 +23,13 @@ from streamlit_extras.switch_page_button import switch_page
 #                 default_index = 0,
 #         )
 
+
+
 ## Setting Page Title
-st.set_page_config(initial_sidebar_state="collapsed",
+st.set_page_config(
+                ## Meaning that the sidebar is not opened when visiting the site
+                initial_sidebar_state="collapsed",
+                ## Page title in the tab
                 page_title='Heart Disease Risk Prediction'
                 )
 
@@ -40,6 +44,19 @@ no_sidebar_style = """
 st.markdown(no_sidebar_style, unsafe_allow_html=True)
 
 
+## Hide the expander itself. (sidebar)
+st.markdown(
+    """
+<style>
+    [data-testid="collapsedControl"] {
+        display: none
+    }
+</style>
+""",
+    unsafe_allow_html=True,
+)
+
+
 ## Hide the github icon on the right side in the deployed app
 hide_github_icon = """
     <style>
@@ -49,7 +66,11 @@ hide_github_icon = """
 st.markdown(hide_github_icon, unsafe_allow_html=True)
 
 
-## To remove the hamburger menu
+
+
+
+
+## To remove the hamburger menu (this is in the right part of the site)
 hide_streamlit_style = """
 <style>
 #MainMenu {visibility: hidden;}
