@@ -19,11 +19,51 @@ from streamlit_extras.switch_page_button import switch_page
 
 
 
+
 ## Setting Page Title
 st.set_page_config(initial_sidebar_state="collapsed",
                 page_title='Heart Disease Risk Prediction'
                 )
+
+
+
                 
+## ======================================================================================= ##
+## SITE CONFIGURATION
+
+# Note: All the contents that is about the modification of the site settings, must also be copied to every pages.
+
+## Remove the contents in the sidebar itself
+no_sidebar_style = """
+    <style>
+        div[data-testid="stSidebarNav"] {display: none;}
+    </style>
+"""
+st.markdown(no_sidebar_style, unsafe_allow_html=True)
+
+
+## Hide the expander itself. (sidebar)
+st.markdown(
+    """
+<style>
+    [data-testid="collapsedControl"] {
+        display: none
+    }
+</style>
+""",
+    unsafe_allow_html=True,
+)
+
+## Hide the github icon on the right side in the deployed app
+hide_github_icon = """
+    <style>
+    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob, .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137, .viewerBadge_text__1JaDK{ display: none; } #MainMenu{ visibility: hidden; } footer { visibility: hidden; } header { visibility: hidden; }
+    </style>
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
+
+## To remove the hamburger menu (this is in the right part of the site)
 hide_streamlit_style = """
 <style>
 #MainMenu {visibility: hidden;}
@@ -32,12 +72,18 @@ footer {visibility: hidden;}
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
-no_sidebar_style = """
-    <style>
-        div[data-testid="stSidebarNav"] {display: none;}
-    </style>
-"""
-st.markdown(no_sidebar_style, unsafe_allow_html=True)
+## ======================================================================================= ##
+## SITE CONTENTS
+
+
+
+
+
+
+
+
+
+
 
 @st.cache(allow_output_mutation=True)
 def model():
