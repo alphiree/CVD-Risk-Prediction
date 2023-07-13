@@ -29,12 +29,31 @@ st.set_page_config(initial_sidebar_state="collapsed",
                 page_title='Heart Disease Risk Prediction'
                 )
 
+
+
+## Remove the contents in the sidebar itself
 no_sidebar_style = """
     <style>
         div[data-testid="stSidebarNav"] {display: none;}
     </style>
 """
 st.markdown(no_sidebar_style, unsafe_allow_html=True)
+
+
+## Hide the github icon on the right side in the deployed app
+st.markdown(
+    """
+    <style>
+    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
+    .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
+    .viewerBadge_text__1JaDK {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 ## To remove the hamburger menu
 hide_streamlit_style = """
